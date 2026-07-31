@@ -116,9 +116,9 @@ export type ThemeCustomization = {
 }
 
 export const DEFAULT_THEME_CUSTOMIZATION: ThemeCustomization = {
-  preset: 'default',
-  font: 'default',
-  radius: 'default',
+  preset: 'anthropic',
+  font: 'sans',
+  radius: 'xl',
   scale: 'default',
   contentLayout: 'full',
 }
