@@ -84,8 +84,6 @@ jobs:
             sixwaaaay/new-api:${{ env.TAG }}-${{ matrix.arch }}
             sixwaaaay/new-api:latest-${{ matrix.arch }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
           provenance: mode=max
           sbom: true
 

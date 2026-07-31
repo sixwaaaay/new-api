@@ -105,8 +105,6 @@ jobs:
             sixwaaaay/new-api:${{ needs.prepare.outputs.tag_prefix }}-${{ matrix.arch }}
             sixwaaaay/new-api:${{ needs.prepare.outputs.version }}-${{ matrix.arch }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
           provenance: mode=max
           sbom: true
 
