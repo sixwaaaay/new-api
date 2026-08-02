@@ -135,11 +135,15 @@ export function ThemeCustomizationProvider(props: {
 
   // Mirror state to the <body> via data-* attributes so theme-presets.css can
   // override CSS variables at the right cascade layer.
+  //
+  // The attribute is only omitted for the explicit `default` preset, which is
+  // what the stylesheet's attribute-less baseline corresponds to. It must NOT
+  // be keyed off DEFAULT_THEME_CUSTOMIZATION.preset: that default may be a
+  // named preset (e.g. `anthropic`) whose CSS only applies while the
+  // attribute is present, so skipping it would silently fall back to the
+  // baseline palette.
   useEffect(() => {
-    applyAttribute(
-      'data-theme-preset',
-      preset === DEFAULT_THEME_CUSTOMIZATION.preset ? null : preset
-    )
+    applyAttribute('data-theme-preset', preset === 'default' ? null : preset)
   }, [preset])
 
   // Font is the one axis where we resolve before writing the attribute:
@@ -152,11 +156,12 @@ export function ThemeCustomizationProvider(props: {
     applyAttribute('data-theme-font', resolveThemeFont(font, preset))
   }, [font, preset])
 
+  // Same rule as the preset axis: omit the attribute only for the explicit
+  // `default` radius (no CSS rule matches it anyway). An explicit value that
+  // happens to equal the customization default (e.g. `xl`) must still be
+  // written, otherwise it can never win over a preset's built-in `--radius`.
   useEffect(() => {
-    applyAttribute(
-      'data-theme-radius',
-      radius === DEFAULT_THEME_CUSTOMIZATION.radius ? null : radius
-    )
+    applyAttribute('data-theme-radius', radius === 'default' ? null : radius)
   }, [radius])
 
   useEffect(() => {
